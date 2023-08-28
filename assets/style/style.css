@@ -106,6 +106,13 @@ nav {
   /* Set the navbar to have highest priority so it shows above all other elements */
   z-index: 1000;
 }
+
+.nav-item:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+.nav-item:last-child {
+  border-bottom-right-radius: 10px;
 }
 
 nav a:link,
