@@ -6,6 +6,10 @@ article {
   flex-direction: column;
 }
 
+article > blockquote {
+  align-self: center;
+}
+
 article > p > img {
   margin-left: 50%;
   transform: translateX(-50%);
