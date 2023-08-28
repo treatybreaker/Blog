@@ -104,6 +104,8 @@ nav {
   border-left-color: var(--sumiInk3);
   border-bottom-left-radius: 10px;
   /* Set the navbar to have highest priority so it shows above all other elements */
+  z-index: 1000;
+}
 }
 
 nav a:link,
