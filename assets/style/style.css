@@ -229,6 +229,7 @@ p > code {
 .page-detail {
   font-size: 0.95rem;
   max-width: min(600px, 95vw);
+  text-align: center;
 }
 
 hr {
