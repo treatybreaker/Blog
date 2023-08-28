@@ -268,7 +268,7 @@ p > code {
 
 hr {
   margin: 30px;
-  width: 125%;
+  width: min(125%, 95vw);
   align-self: center;
   border: none;
   border-top: thin solid;
