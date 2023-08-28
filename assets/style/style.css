@@ -234,4 +234,6 @@ p > code {
 
 hr {
   margin: 30px;
+  border: none;
+  border-top: thin solid;
 }
