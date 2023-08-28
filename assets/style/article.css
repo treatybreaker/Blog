@@ -1,9 +1,7 @@
 /* Article Specific Styling Below */
 article {
   display: flex;
-  max-width: min(700px, 100vw);
-  padding-left: 3px;
-  padding-left: 3px;
+  max-width: min(700px, 90vw);
   align-self: center;
   flex-direction: column;
 }
