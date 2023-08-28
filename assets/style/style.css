@@ -1,0 +1,236 @@
+/* Yo, you're looking at my horrid CSS. Judge, let me know what I'm doing wrong because I sure as shit am NOT a web dev.
+* Though maybe someday? For now, this is my cobbled together mess based on Mozilla's web developer documentation and a
+* fuckton of fiddling. */
+
+/* TODO: Split this up and improve some of our organization of classes. Ideally the delivered css should be no more than
+*  4k in size so the article content can take up 10k. Stay within the TCP first roundtrip size to speed up loading.
+*  Granted the style SHOULD get cached so it's not that big of a deal, but something to resolve.
+*
+*  TODO: Regardless of the size of this beast, I need to deduplicate some of the functionality of these classes. Lots of
+*  things are unecessarily repated that could be consolidated. <- DO THIS PART FIRST, IGNORE SIZE */
+:root {
+  --fujiWhite: #dcd7ba;
+  --oldWhite: #c8c093;
+  --sumiInk0: #16161d;
+  --sumiInk1: #1f1f28;
+  --sumiInk2: #2a2a37;
+  --sumiInk3: #363646;
+  --sumiInk4: #54546d;
+  --waveBlue1: #223249;
+  --waveBlue2: #2d4f67;
+  --winterGreen: #2b3328;
+  --winterYellow: #49443c;
+  --winterRed: #43242b;
+  --winterBlue: #252535;
+  --autumnGreen: #76946a;
+  --autumnRed: #c34043;
+  --autumnYellow: #dca561;
+  --samuraiRed: #e82424;
+  --roninYellow: #ff9e3b;
+  --waveAqua1: #6a9589;
+  --dragonBlue: #658594;
+  --fujiGray: #727169;
+  --springViolet1: #938aa9;
+  --oniViolet: #957fb8;
+  --crystalBlue: #7e9cd8;
+  --springViolet2: #9cabca;
+  --springBlue: #7fb4ca;
+  --lightBlue: #a3d4d5;
+  --waveAqua2: #7aa89f;
+  --springGreen: #98bb6c;
+  --boatYellow1: #938056;
+  --boatYellow2: #c0a36e;
+  --carpYellow: #e6c384;
+  --sakuraPink: #d27e99;
+  --waveRed: #e46876;
+  --peachRed: #ff5d62;
+  --surimiOrange: #ffa066;
+  --navbar-height: 40px;
+  --navbar-bg-color: var(--sumiInk4);
+  --navbar-border-color: var(--sumiInk3);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--lightBlue) 25%, transparent);
+}
+
+/* This ensures the page uses full width at all times. We have to do this because some elements (our images in
+*  particular) are wider than their parents and we couldn't use flex for that causing some alignment issues when the
+*  webpage was too narrow (Mobile devices). */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+html {
+  background-color: var(--sumiInk0);
+  color: var(--fujiWhite);
+}
+
+body {
+  padding-top: var(--navbar-height);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  background-color: color-mix(in srgb, var(--navbar-bg-color) 20%, transparent);
+  backdrop-filter: blur(12px);
+  /* HACK: Fucken safari doesn't support `backdrop-filter`, webkit has its own. D o g s h i t. */
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 1.1rem;
+  font-family: sans-serif;
+  height: var(--navbar-height);
+  position: fixed;
+  top: 0;
+  width: 300px;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--sumiInk3);
+  border-right-style: solid;
+  border-right-color: var(--sumiInk3);
+  border-bottom-right-radius: 10px;
+  border-left-style: solid;
+  border-left-color: var(--sumiInk3);
+  border-bottom-left-radius: 10px;
+  /* Set the navbar to have highest priority so it shows above all other elements */
+}
+
+nav a:link,
+nav a:visited {
+  color: var(--fujiWhite);
+  background-color: unset;
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a:visited:hover {
+  color: unset;
+  background-color: unset;
+}
+
+.nav-item {
+  width: 100%;
+}
+
+.nav-item:not(:last-child) {
+  border-right: 2px solid var(--sumiInk3);
+}
+
+.nav-item:hover {
+  color: var(--fujiWhite);
+  transition-duration: 0.3s;
+  background-color: color-mix(in srgb, var(--navbar-bg-color) 40%, transparent);
+}
+
+.nav-item a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+img {
+  padding: 10px;
+  overflow: scroll;
+  max-height: 75vh;
+  max-width: min(95vw, 125%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 0;
+  font-family: sans-serif;
+}
+
+a:link {
+  color: var(--crystalBlue);
+}
+
+a:hover,
+a:visited:hover {
+  color: var(--fujiWhite);
+  background-color: color-mix(in srgb, var(--crystalBlue) 50%, transparent);
+  text-decoration-color: var(--crystalBlue);
+}
+
+a:visited {
+  color: var(--oniViolet);
+}
+
+blockquote {
+  background-color: var(--sumiInk1);
+  padding: 10px;
+  border-left-width: 5px;
+  border-left-style: solid;
+  border-left-color: var(--sumiInk4);
+}
+
+blockquote > p {
+  margin: 0;
+}
+
+pre {
+  border-radius: 4px;
+  overflow: auto;
+  outline-style: solid;
+  outline-color: var(--sumiInk2);
+  outline-width: 2.5px;
+  width: min(90vw, 800px);
+  font-size: 0.85rem;
+  transition-duration: 0.25s;
+  align-self: center;
+  padding: 5px;
+}
+
+pre:hover {
+  outline-color: var(--sumiInk3);
+  /* NOTE: We have to set important because Comrak's default syntax adapter will ALWAYS set a color for the background
+   * here, no way to avoid it unless we want to rewrite chunks of the syntax adapter. Currently I'm too lazy to
+   * investigate that.*/
+  background-color: var(--sumiInk2) !important;
+}
+
+code {
+  border-radius: 6px;
+  padding: 2px;
+  font-family: monospace;
+}
+
+p > code {
+  background-color: var(--sumiInk3);
+}
+
+.page-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-family: sans-serif;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-style: bold;
+  font-family: sans-serif;
+}
+
+.page-detail {
+  font-size: 0.95rem;
+  max-width: min(600px, 95vw);
+}
+
+hr {
+  margin: 30px;
+}

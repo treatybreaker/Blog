@@ -1,0 +1,19 @@
+/* Tags.html */
+.tags {
+  max-width: min(750px, 90vw);
+}
+
+.tags > ul {
+  margin: 0;
+  padding: 0;
+}
+
+.tags > ul > li {
+  display: inline;
+  font-family: sans-serif;
+  font-size: 1.5rem;
+}
+
+.tags > ul > li:not(:last-child)::after {
+  content: " ⦁";
+}

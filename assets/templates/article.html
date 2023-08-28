@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>{{ article_title }}</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="/style/style.css" rel="stylesheet" />
+  <link href="/style/article.css" rel="stylesheet" />
+</head>
+
+{% include "nav.html" %}
+
+<body>
+  <div class="page-info">
+    <div class="page-title article-name">{{ article_title }}</div>
+    <div class="page-detail article-summary">{{ article_summary }}</div>
+    <div class="article-dates">
+      <div class="article-published">{{ article_published }}</div>
+      <div class="article-last-updated">{{ article_last_updated }}</div>
+    </div>
+    <div class="article-tags">
+      <ul>
+        {% for tag in article_tags -%}
+        <li><a href="/tags/{{ tag }}.html">{{ tag }}</a></li>
+        {% endfor -%}
+      </ul>
+    </div>
+  </div>
+  <article>
+    <hr />
+    {{ article_content }}
+  </article>
+</body>
+
+</html>

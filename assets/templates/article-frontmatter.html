@@ -1,0 +1,19 @@
+{% macro gen(frontmatter, link) %}
+<div class="article-frontmatter">
+  <a href="/articles/{{ link }}">
+    <div class="article-name">{{ frontmatter.name }}</div>
+    <div class="article-detail">{{ frontmatter.summary }}</div>
+    <div class="article-dates">
+      <div class="article-published">{{ frontmatter.published }}</div>
+      <div class="article-last-updated">{{ frontmatter.updated }}</div>
+    </div>
+    <div class="article-frontmatter-tags">
+      <ul>
+        {% for tag in frontmatter.tags -%}
+        <li><a href="/tags/{{ tag }}.html">{{ tag }}</a></li>
+        {% endfor -%}
+      </ul>
+    </div>
+  </a>
+</div>
+{% endmacro gen %}

@@ -1,0 +1,29 @@
+{% import "article-frontmatter.html" as front_matter_macro %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Articles</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/style/style.css" rel="stylesheet">
+    <link href="/style/article.css" rel="stylesheet" />
+  </head>
+  {% include "nav.html" %}
+  <body>
+    <div class="page-info">
+      <div class="page-title">Articles</div>
+      <div class="page-detail">Grimoire of brain damage</div>
+    </div>
+    <div class="articles-container">
+      <ul>
+        {% for article in articles -%}
+        <a href="/articles/{{ article.link }}">
+          <li>
+            {{ front_matter_macro::gen(frontmatter=article.frontmatter, link=article.link) }}
+          </li>
+        </a>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
