@@ -1,24 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <title>Tags</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/style/style.css" rel="stylesheet" />
+    <link href="/style/tags.css" rel="stylesheet" />
+  </head>
+  {% include "nav.html" %}
 
-<head>
-  <title>Tags</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="/style/style.css" rel="stylesheet" />
-  <link href="/style/tags.css" rel="stylesheet" />
-</head>
-
-{% include "nav.html" %}
-
-<body>
-  <div class="tags">
-    <ul>
-      {% for tag in tags -%}
+  <body>
+    <div class="tags">
+      <ul>
+        {% for tag in tags -%}
         <li><a href="/tags/{{ tag }}.html">{{ tag }}</a></li>
-      {% endfor -%}
-    </ul>
-  </div>
-</body>
-
+        {% endfor -%}
+      </ul>
+    </div>
+  </body>
 </html>
