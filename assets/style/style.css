@@ -79,6 +79,27 @@ body {
   margin-top: 30px;
 }
 
+.footer-link-items {
+  display: flex;
+  gap: 15px;
+}
+
+footer {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--waveBlue1);
+  height: 100px;
+  margin-top: auto;
+  width: 100vw;
+}
+
+footer a, footer a:visited {
+  color: var(--crystalBlue);
+}
+
 nav {
   display: flex;
   flex-direction: row;
