@@ -1,14 +1,14 @@
 use anyhow::{Context, Ok};
-use clap::Parser;
 use blog::{
     markdown::article::{Article, FrontMatter},
     page_gen::{
         articles::Articles,
-        tags::{TagArticles, Tags},
+        tags::{TagArticles, Tags}, home::Home,
     },
     TemplateRenderer,
 };
-use std::{collections::HashMap, path::PathBuf};
+use clap::Parser;
+use std::{collections::HashMap, fs::copy, path::PathBuf};
 use tera::Tera;
 
 #[derive(Parser, Debug)]
@@ -30,8 +30,8 @@ struct Args {
 fn main() -> anyhow::Result<()> {
     let comrak_settings = blog::markdown::MDComrakSettings::default().unwrap();
     let posts_dir = PathBuf::from(concat!(env!("CARGO_MANIFEST_DIR"), "/posts/"));
-    let posts_walkable = std::fs::read_dir(&posts_dir)
-        .context("Unable to read posts directory!")?;
+    let posts_walkable =
+        std::fs::read_dir(&posts_dir).context("Unable to read posts directory!")?;
     let out_path = PathBuf::from(concat!(env!("CARGO_MANIFEST_DIR"), "/out"));
     std::fs::create_dir_all(&out_path)
         .context(format!("Unable to create out directory at '{out_path:?}'"))?;
@@ -78,6 +78,14 @@ fn main() -> anyhow::Result<()> {
     }
     println!("Finished rendering Article templates");
 
+    println!("Rendering Articles Page");
+    let articles_page = Articles::new(&article_links)
+        .render_template(&tera)
+        .context("Main Articles Page Rendering Error")?;
+    let articles_write_path = &out_path.join("articles.html");
+    write_file(&articles_write_path, articles_page.as_bytes())?;
+    println!("Finished Rendering Articles Page");
+
     println!("Rendering Tags Page");
     let tags_page = Tags::new(&detected_tags_article.keys().collect::<Vec<&String>>())
         .render_template(&tera)
@@ -86,14 +94,6 @@ fn main() -> anyhow::Result<()> {
     let tags_write_path = &out_path.join("tags.html");
     write_file(&tags_write_path, tags_page.as_bytes())?;
     println!("Finished Rendering Tags Page");
-
-    println!("Rendering Articles Page");
-    let articles_page = Articles::new(&article_links)
-        .render_template(&tera)
-        .context("Main Articles Page Rendering Error")?;
-    let articles_write_path = &out_path.join("articles.html");
-    write_file(&articles_write_path, articles_page.as_bytes())?;
-    println!("Finished Rendering Articles Page");
 
     println!("Rendering Individual Tag Pages");
     for (tag, article_link) in detected_tags_article.iter() {
@@ -106,9 +106,21 @@ fn main() -> anyhow::Result<()> {
     }
     println!("Finished rendering Individual Tag Pages");
 
+    println!("Rendering Home Page");
+    let home_page = Home::render_template(&Home {  }, &tera)?;
+    write_file(&out_path.join("home.html"), home_page.as_bytes())?;
+    println!("Finished rendering Home Page");
+
     let base_asset_dir = PathBuf::from(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/"));
     copy_recursive(&base_asset_dir.join("style/"), &out_path.join("style"))?;
-    copy_recursive(&posts_dir.join("assets/"), &out_path.join("articles/assets"))?;
+    copy_recursive(
+        &base_asset_dir.join("static/"),
+        &out_path.join("assets/static/"),
+    )?;
+    copy_recursive(
+        &posts_dir.join("assets/"),
+        &out_path.join("articles/assets"),
+    )?;
 
     Ok(())
 }

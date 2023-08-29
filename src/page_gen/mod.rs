@@ -3,6 +3,7 @@ use serde::Serialize;
 
 pub mod articles;
 pub mod tags;
+pub mod home;
 
 #[derive(Serialize)]
 pub struct ArticleLink<'a> {
