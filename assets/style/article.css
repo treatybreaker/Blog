@@ -74,7 +74,7 @@ article > p {
 }
 .articles-container > ul > li {
   list-style-type: none;
-  margin: 10px
+  margin: 10px;
 }
 
 .article-frontmatter {
