@@ -16,7 +16,7 @@
     </div>
     <div class="articles-container">
       <ul>
-        {% for article in articles -%}
+        {% for article in articles | sort(attribute="frontmatter.published") | reverse -%}
         <a href="/articles/{{ article.link }}">
           <li>
             {{ front_matter_macro::gen(frontmatter=article.frontmatter, link=article.link) }}
