@@ -59,6 +59,7 @@
 *  webpage was too narrow (Mobile devices). */
 html,
 body {
+  height: 100%;
   overflow-x: hidden;
   padding: 0;
   margin: 0;
@@ -67,16 +68,23 @@ body {
 html {
   background-color: var(--sumiInk0);
   color: var(--fujiWhite);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 body {
-  min-height: 100vh;
   padding-top: var(--navbar-height);
-  line-height: 1.6;
+  line-height: 1.8;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
+  height: 100%;
+}
+
+p {
+  max-width: min(700px, 90vw);
 }
 
 .footer-link-items {
@@ -91,8 +99,9 @@ footer {
   align-items: center;
   justify-content: center;
   background-color: var(--waveBlue1);
-  height: 100px;
   margin-top: auto;
+  min-height: 80px;
+  align-self: flex-start;
   width: 100vw;
 }
 
