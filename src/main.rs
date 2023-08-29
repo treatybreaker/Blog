@@ -3,12 +3,12 @@ use blog::{
     markdown::article::{Article, FrontMatter},
     page_gen::{
         articles::Articles,
-        tags::{TagArticles, Tags}, home::Home,
+        tags::{TagArticles, Tags},
     },
     TemplateRenderer,
 };
 use clap::Parser;
-use std::{collections::HashMap, fs::copy, path::PathBuf};
+use std::{collections::HashMap, path::PathBuf};
 use tera::Tera;
 
 #[derive(Parser, Debug)]
@@ -106,9 +106,15 @@ fn main() -> anyhow::Result<()> {
     }
     println!("Finished rendering Individual Tag Pages");
 
+    let empty_context = tera::Context::new();
     println!("Rendering Home Page");
-    let home_page = Home::render_template(&Home {  }, &tera)?;
+    let home_page = tera.render("home.html", &empty_context)?;
     write_file(&out_path.join("home.html"), home_page.as_bytes())?;
+    println!("Finished rendering Home Page");
+
+    println!("Rendering Credits Page");
+    let credits_page = tera.render("credits.html", &empty_context)?;
+    write_file(&out_path.join("credits.html"), credits_page.as_bytes())?;
     println!("Finished rendering Home Page");
 
     let base_asset_dir = PathBuf::from(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/"));
