@@ -4,12 +4,16 @@ article {
   max-width: min(700px, 90vw);
   align-self: center;
   flex-direction: column;
+  margin-bottom: 30px;
 }
 
 article > blockquote {
   align-self: center;
 }
 
+article > p {
+  padding: 0;
+  margin-top: 0;
 }
 
 .article-name {

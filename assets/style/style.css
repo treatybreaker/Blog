@@ -195,8 +195,10 @@ h3,
 h4,
 h5,
 h6 {
-  line-height: 0;
+  line-height: 1.2;
   font-family: sans-serif;
+  margin-top: 20px;
+  margin-bottom: 5px;
 }
 
 a:link {
@@ -252,10 +254,13 @@ code {
   border-radius: 6px;
   padding: 2px;
   font-family: monospace;
+  background-color: var(--sumiInk3);
 }
 
-p > code {
-  background-color: var(--sumiInk3);
+pre > code {
+  background-color: unset;
+}
+
 ul {
   margin: 0;
 }
