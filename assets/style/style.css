@@ -83,8 +83,12 @@ body {
   height: 100%;
 }
 
-p {
+.body-wrapper {
+  display: flex;
   max-width: min(700px, 90vw);
+  align-self: center;
+  flex-direction: column;
+  margin-bottom: 30px;
 }
 
 .footer-link-items {
@@ -261,11 +265,24 @@ pre > code {
   background-color: unset;
 }
 
-ul {
+ul,
+ol,
+dl {
   margin: 0;
 }
 
-ol {
+dt {
+  display: list-item;
+  list-style-type: disc;
+  border-bottom: medium solid var(--sumiInk3);
+}
+
+dd {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+dl {
   margin: 0;
 }
 
