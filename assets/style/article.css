@@ -10,11 +10,6 @@ article > blockquote {
   align-self: center;
 }
 
-article > p > img {
-  margin-left: 50%;
-  transform: translateX(-50%);
-  max-height: 75vh;
-  max-width: min(90vw, 800px);
 }
 
 .article-name {

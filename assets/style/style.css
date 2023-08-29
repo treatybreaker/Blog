@@ -184,6 +184,9 @@ img {
   overflow: scroll;
   max-height: 75vh;
   max-width: min(95vw, 125%);
+  margin-left: 50%;
+  transform: translateX(-50%);
+  border-radius: 15px;
 }
 
 h1,
