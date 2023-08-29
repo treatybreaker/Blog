@@ -244,6 +244,16 @@ code {
 
 p > code {
   background-color: var(--sumiInk3);
+ul {
+  margin: 0;
+}
+
+ol {
+  margin: 0;
+}
+
+li {
+  margin: 10px 0;
 }
 
 .page-info {
