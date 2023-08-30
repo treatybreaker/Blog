@@ -36,6 +36,13 @@ impl MDComrakSettings<'_> {
         let mut options = ComrakOptions::default();
         options.render.unsafe_ = true;
         options.extension.front_matter_delimiter = Some("---".to_owned());
+        options.extension.autolink = true;
+        options.extension.table = true;
+        options.extension.tasklist = true;
+        options.extension.superscript = true;
+        options.extension.header_ids = Some("header-id-".to_string());
+        options.extension.footnotes = true;
+
 
         let mut plugins = ComrakPlugins::default();
         plugins.render.codefence_syntax_highlighter = Some(&*SYNTECT_ADAPTER);
