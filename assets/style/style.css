@@ -183,14 +183,13 @@ nav a:visited:hover {
 }
 
 img {
-  padding: 10px;
   margin: 0;
   overflow: scroll;
   max-height: 75vh;
   max-width: min(95vw, 125%);
   margin-left: 50%;
   transform: translateX(-50%);
-  border-radius: 15px;
+  border-radius: 6px;
 }
 
 .anchor {
