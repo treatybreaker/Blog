@@ -106,16 +106,18 @@ fn main() -> anyhow::Result<()> {
     }
     println!("Finished rendering Individual Tag Pages");
 
-    let empty_context = tera::Context::new();
-    println!("Rendering Home Page");
-    let home_page = tera.render("home.html", &empty_context)?;
-    write_file(&out_path.join("home.html"), home_page.as_bytes())?;
-    println!("Finished rendering Home Page");
+    // TODO: Refactor this so we recursively walk a directory and get these instead of updating a
+    // vec everytime
+    let static_pages = vec!["home.html", "credits.html", "contact.html"];
+    let static_context = tera::Context::new();
 
-    println!("Rendering Credits Page");
-    let credits_page = tera.render("credits.html", &empty_context)?;
-    write_file(&out_path.join("credits.html"), credits_page.as_bytes())?;
-    println!("Finished rendering Home Page");
+    for static_page in static_pages {
+        println!("Rendering Static Page: {}", &static_page);
+        let rendered_static_page = tera.render(&format!("static/{}", &static_page), &static_context)?;
+        write_file(&out_path.join(&static_page), rendered_static_page.as_bytes())?;
+        println!("Finished Rendering Static Page: {}", &static_page);
+
+    }
 
     let base_asset_dir = PathBuf::from(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/"));
     copy_recursive(&base_asset_dir.join("style/"), &out_path.join("style"))?;
