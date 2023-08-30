@@ -193,6 +193,14 @@ img {
   border-radius: 15px;
 }
 
+.anchor {
+  text-decoration: none;
+}
+
+.anchor:visited, .anchor:link, .anchor:active {
+  color: var(--boatYellow2)
+}
+
 h1,
 h2,
 h3,
@@ -203,6 +211,30 @@ h6 {
   font-family: sans-serif;
   margin-top: 20px;
   margin-bottom: 5px;
+}
+
+h1 {
+  font-size: 1.8rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+h4 {
+  font-size: 1.3rem;
+}
+
+h5 {
+  font-size: 1.2rem;
+}
+
+h6 {
+  font-size: 1.1rem;
 }
 
 a:link {
