@@ -1,6 +1,5 @@
-use std::io::Cursor;
-
-use comrak::{nodes::AstNode, ComrakOptions, ComrakPlugins, plugins::syntect::{SyntectAdapter, SyntectAdapterBuilder}};
+use std::io::{Cursor, Write};
+use comrak::{nodes::{AstNode, Sourcepos}, ComrakOptions, ComrakPlugins, plugins::syntect::{SyntectAdapter, SyntectAdapterBuilder}, adapters::{HeadingAdapter, HeadingMeta}, Anchorizer};
 use lazy_static::lazy_static;
 use syntect::highlighting::ThemeSet;
 
@@ -25,6 +24,31 @@ where
     }
 }
 
+struct HeaderLinkAdapter;
+
+impl HeadingAdapter for HeaderLinkAdapter {
+  fn enter(
+        &self,
+        output: &mut dyn Write,
+        heading: &HeadingMeta,
+        _: Option<Sourcepos>,
+    ) -> std::io::Result<()> {
+        let mut anchorizer = Anchorizer::new();
+        let id = anchorizer.anchorize(heading.content.to_string());
+
+        write!(output, "<h{}>", heading.level)?;
+        write!(
+            output,
+            "<a id=\"{}\" class=\"anchor\" href=\"#{}\">",
+            id, id
+        )
+    }
+
+    fn exit(&self, output: &mut dyn Write, heading: &HeadingMeta) -> std::io::Result<()> {
+        write!(output, "</a></h{}>", heading.level)
+    }
+}
+
 #[derive(Debug)]
 pub struct MDComrakSettings<'a> {
     pub options: ComrakOptions,
@@ -40,12 +64,11 @@ impl MDComrakSettings<'_> {
         options.extension.table = true;
         options.extension.tasklist = true;
         options.extension.superscript = true;
-        options.extension.header_ids = Some("header-id-".to_string());
         options.extension.footnotes = true;
-
 
         let mut plugins = ComrakPlugins::default();
         plugins.render.codefence_syntax_highlighter = Some(&*SYNTECT_ADAPTER);
+        plugins.render.heading_adapter = Some(&HeaderLinkAdapter);
 
         Ok(MDComrakSettings { options, plugins })
     }
