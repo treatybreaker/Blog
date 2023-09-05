@@ -348,3 +348,9 @@ hr {
   border: none;
   border-top: thin solid;
 }
+
+.footnotes {
+  border-top: var(--fujiGray) thin solid;
+  color: var(--springViolet2);
+  font-size: 0.75rem;
+}
