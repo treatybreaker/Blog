@@ -16,7 +16,7 @@ use super::{iter_nodes, MDComrakSettings};
 #[derive(Debug, Serialize)]
 pub struct Article {
     pub html_content: String,
-    pub frontmatter: FrontMatter
+    pub frontmatter: FrontMatter,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -95,6 +95,9 @@ impl TemplateRenderer for Article {
         tera_context.insert("article_last_updated", &self.frontmatter.updated);
         tera_context.insert("article_tags", &self.frontmatter.tags);
         tera_context.insert("article_content", &self.html_content);
-        tera.render("article.html", &tera_context).context(format!("Failed to render Article: '{}'", &self.frontmatter.name))
+        tera.render("article.html", &tera_context).context(format!(
+            "Failed to render Article: '{}'",
+            &self.frontmatter.name
+        ))
     }
 }

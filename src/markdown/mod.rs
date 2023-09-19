@@ -1,17 +1,24 @@
-use std::io::{Cursor, Write};
-use comrak::{nodes::{AstNode, Sourcepos}, ComrakOptions, ComrakPlugins, plugins::syntect::{SyntectAdapter, SyntectAdapterBuilder}, adapters::{HeadingAdapter, HeadingMeta}, Anchorizer};
+use comrak::{
+    adapters::{HeadingAdapter, HeadingMeta},
+    nodes::{AstNode, Sourcepos},
+    plugins::syntect::{SyntectAdapter, SyntectAdapterBuilder},
+    Anchorizer, ComrakOptions, ComrakPlugins,
+};
 use lazy_static::lazy_static;
+use std::io::{Cursor, Write};
 use syntect::highlighting::ThemeSet;
 
 pub mod article;
 
 lazy_static! {
-    pub static ref SYNTECT_ADAPTER: SyntectAdapter =
-        MDComrakSettings::load_theme("kanagawa", &mut Cursor::new(include_bytes!(concat!(
+    pub static ref SYNTECT_ADAPTER: SyntectAdapter = MDComrakSettings::load_theme(
+        "kanagawa",
+        &mut Cursor::new(include_bytes!(concat!(
             env!("CARGO_MANIFEST_DIR"),
             "/assets/Kanagawa.tmTheme"
-        ))))
-        .expect("Unable to load custom syntax theme!");
+        )))
+    )
+    .expect("Unable to load custom syntax theme!");
 }
 
 pub fn iter_nodes<'a, F>(node: &'a AstNode<'a>, f: &mut F)
@@ -27,7 +34,7 @@ where
 struct HeaderLinkAdapter;
 
 impl HeadingAdapter for HeaderLinkAdapter {
-  fn enter(
+    fn enter(
         &self,
         output: &mut dyn Write,
         heading: &HeadingMeta,

@@ -8,7 +8,7 @@ use blog::{
     TemplateRenderer,
 };
 use clap::Parser;
-use std::{collections::HashMap, path::PathBuf};
+use std::{collections::HashMap, fs::DirEntry, path::PathBuf};
 use tera::Tera;
 
 #[derive(Parser, Debug)]
@@ -113,10 +113,13 @@ fn main() -> anyhow::Result<()> {
 
     for static_page in static_pages {
         println!("Rendering Static Page: {}", &static_page);
-        let rendered_static_page = tera.render(&format!("static/{}", &static_page), &static_context)?;
-        write_file(&out_path.join(&static_page), rendered_static_page.as_bytes())?;
+        let rendered_static_page =
+            tera.render(&format!("static/{}", &static_page), &static_context)?;
+        write_file(
+            &out_path.join(&static_page),
+            rendered_static_page.as_bytes(),
+        )?;
         println!("Finished Rendering Static Page: {}", &static_page);
-
     }
 
     let base_asset_dir = PathBuf::from(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/"));

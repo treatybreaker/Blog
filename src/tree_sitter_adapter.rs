@@ -12,7 +12,6 @@
 /// https://andrewtbiehl.com/blog/jekyll-tree-sitter is what sent me down this horrid path along
 /// with some of his code in his kramdown syntax module. I did *significantly* speed this code up
 /// though, as in several magnitudes for my purposes.
-
 use std::{
     collections::HashMap,
     convert,
@@ -92,7 +91,9 @@ impl TreesitterSyntaxAdapter {
         let (language, lang_config) = Self::get_language_config(&loader, code_lang)?;
         let highlight_config = Self::get_highlight_configuration(language, lang_config, code_lang)?;
         let highlights =
-            highlighter.highlight(&highlight_config, code.as_bytes(), None, |lang| loader.highlight_config_for_injection_string(lang))?;
+            highlighter.highlight(&highlight_config, code.as_bytes(), None, |lang| {
+                loader.highlight_config_for_injection_string(lang)
+            })?;
         // loader.configure_highlights(&highlight_config.names().to_vec());
 
         Ok(highlights)
@@ -106,7 +107,6 @@ impl TreesitterSyntaxAdapter {
 }
 
 impl SyntaxHighlighterAdapter for TreesitterSyntaxAdapter {
-
     fn write_highlighted(
         &self,
         output: &mut dyn Write,
