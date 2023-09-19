@@ -134,19 +134,32 @@ fn main() -> anyhow::Result<()> {
 }
 
 fn copy_recursive(src: &PathBuf, dest: &PathBuf) -> anyhow::Result<()> {
+    println!("Copying {} to {}", src.display(), dest.display());
     std::fs::create_dir_all(&dest)?;
-    for item in std::fs::read_dir(src)? {
-        let entry = item?;
-        let file_type = entry.file_type()?;
+    iter_dir(src, &|entry: &DirEntry| -> anyhow::Result<()> {
         let dest = &dest.join(entry.file_name());
-        if file_type.is_dir() {
-            copy_recursive(&entry.path(), &dest)?;
-        } else if file_type.is_symlink() {
+        let filetype = entry.file_type()?;
+        if filetype.is_symlink() {
             let _ = std::fs::remove_file(&dest);
             std::fs::copy(std::fs::read_link(entry.path())?, &dest)?;
         } else {
             let _ = std::fs::remove_file(&dest);
             std::fs::copy(&entry.path(), &dest)?;
+        }
+        Ok(())
+    })
+}
+
+fn iter_dir<F>(path: &PathBuf, phandler: &F) -> anyhow::Result<()>
+where
+    F: Fn(&DirEntry) -> anyhow::Result<()>,
+{
+    for item in std::fs::read_dir(path)? {
+        let entry = item?;
+        if entry.file_type()?.is_dir() {
+            iter_dir(&entry.path(), phandler)?;
+        } else {
+            phandler(&entry)?;
         }
     }
     Ok(())
