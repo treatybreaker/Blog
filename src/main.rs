@@ -139,7 +139,7 @@ fn main() -> anyhow::Result<()> {
 fn copy_recursive(src: &PathBuf, dest: &PathBuf) -> anyhow::Result<()> {
     println!("Copying {} to {}", src.display(), dest.display());
     std::fs::create_dir_all(&dest)?;
-    iter_dir(src, &|entry: &DirEntry| -> anyhow::Result<()> {
+    blog::iter_dir(src, &|entry: &DirEntry| -> anyhow::Result<()> {
         let dest = &dest.join(entry.file_name());
         let filetype = entry.file_type()?;
         if filetype.is_symlink() {
@@ -153,20 +153,6 @@ fn copy_recursive(src: &PathBuf, dest: &PathBuf) -> anyhow::Result<()> {
     })
 }
 
-fn iter_dir<F>(path: &PathBuf, phandler: &F) -> anyhow::Result<()>
-where
-    F: Fn(&DirEntry) -> anyhow::Result<()>,
-{
-    for item in std::fs::read_dir(path)? {
-        let entry = item?;
-        if entry.file_type()?.is_dir() {
-            iter_dir(&entry.path(), phandler)?;
-        } else {
-            phandler(&entry)?;
-        }
-    }
-    Ok(())
-}
 
 fn write_file(file_path: &PathBuf, contents: &[u8]) -> anyhow::Result<()> {
     let mut dir = file_path.clone();
