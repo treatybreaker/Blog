@@ -189,7 +189,10 @@ img {
   max-width: min(95vw, 125%);
   margin-left: 50%;
   transform: translateX(-50%);
-  border-radius: 6px;
+  border-radius: 4px;
+  outline-width: 1px;
+  outline-style: solid;
+  outline-color: var(--sumiInk2);
 }
 
 .anchor {
@@ -318,7 +321,7 @@ dl {
 }
 
 li {
-  margin: 10px 0;
+  margin-top: 2px;
 }
 
 .page-info {
