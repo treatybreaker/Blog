@@ -297,7 +297,7 @@ If you forget to do so, you won't be able to use SSH keys on some git operations
 Part dos, the reverse proxy.
 
 I like SSL, I hope you do too. Instead of allowing Gitlab to manage its own proxy, I prefer having a single proxy on the
-host that handles all of that for the various containers that may running.
+host that handles all of that for the various containers that may be running.
 
 I have a primary `nginx.nix` service file that contains the following:
 
