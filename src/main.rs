@@ -140,8 +140,19 @@ fn copy_recursive(src: &PathBuf, dest: &PathBuf) -> anyhow::Result<()> {
     println!("Copying {} to {}", src.display(), dest.display());
     std::fs::create_dir_all(&dest)?;
     blog::iter_dir(src, &|entry: &DirEntry| -> anyhow::Result<()> {
-        let dest = &dest.join(entry.file_name());
+        let mut dest = dest.clone();
         let filetype = entry.file_type()?;
+
+        // This ensures all non base dirs are also copied. Basically copies whole directories under
+        // `src` to `dest`
+        if let Some(parent) = entry.path().parent() {
+            if parent != src.as_path() {
+                dest = dest.join(parent.to_path_buf().components().last().unwrap());
+                std::fs::create_dir_all(&dest)?;
+            }
+        }
+        dest = dest.join(entry.file_name());
+
         if filetype.is_symlink() {
             let _ = std::fs::remove_file(&dest);
             std::fs::copy(std::fs::read_link(entry.path())?, &dest)?;
