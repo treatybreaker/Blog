@@ -9,11 +9,11 @@ If you have found an issue within my site, say incorrect spelling, incorrect gra
 
 #### Reporting Issues that my code sucks/is bad/should be burnt inside a supernovae explosion
 
-Yeah, you're probably right. But on a serious note, if see anything that is extremely terrible code-wise do let me know.
-I won't accept PRs for code modifications here as this repository is just a mirror, but if you want to open one to share
-something new with me or show me how I could do something better I'm totally down and I may even copy your stuff and
-cosign you when I merge it into the primary. Best way to learn is to be brought down a peg in my experience, so I'm open
-to it.
+Yeah, you're probably right. But on a serious note, if you see anything that is extremely terrible code-wise do let me
+know. I won't accept PRs for code modifications here as this repository is just a mirror, but if you want to open one to
+share something new with me or show me how I could do something better I'm totally down and I may even copy your stuff
+and cosign you when I merge it into the primary. Best way to learn is to be brought down a peg in my experience, so I'm
+open to it.
 
 ## Miscellaneous
 
