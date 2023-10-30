@@ -6,7 +6,7 @@ use comrak::{
 };
 use lazy_static::lazy_static;
 use std::io::{Cursor, Write};
-use syntect::highlighting::ThemeSet;
+use syntect::{highlighting::ThemeSet, parsing::SyntaxSet};
 
 pub mod article;
 
@@ -84,10 +84,13 @@ impl MDComrakSettings<'_> {
     where
         R: std::io::BufRead + std::io::Seek,
     {
+        let mut syntaxes = SyntaxSet::load_defaults_newlines().into_builder();
+        syntaxes.add_from_folder(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/syntaxes/"), true)?;
         let theme = ThemeSet::load_from_reader(theme_cursor)?;
         let mut theme_set = ThemeSet::new();
         theme_set.themes.insert(String::from(theme_name), theme);
         let adapter = SyntectAdapterBuilder::new()
+            .syntax_set(syntaxes.build())
             .theme_set(theme_set)
             .theme(theme_name)
             .build();
