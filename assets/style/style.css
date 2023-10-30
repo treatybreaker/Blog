@@ -63,6 +63,7 @@ body {
   overflow-x: hidden;
   padding: 0;
   margin: 0;
+  font-size: 1.05rem;
 }
 
 html {
@@ -281,7 +282,6 @@ pre {
   outline-color: var(--sumiInk2);
   outline-width: 2.5px;
   width: min(90vw, 800px);
-  font-size: 0.85rem;
   transition-duration: 0.25s;
   align-self: center;
   padding: 5px;
@@ -300,10 +300,13 @@ code {
   padding: 2px;
   font-family: monospace;
   background-color: var(--sumiInk3);
+  font-size: 0.9rem;
+  line-height: 22px;
 }
 
 pre > code {
   background-color: unset;
+  display: block;
 }
 
 ul,
