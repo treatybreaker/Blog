@@ -199,8 +199,10 @@ img {
   text-decoration: none;
 }
 
-.anchor:visited, .anchor:link, .anchor:active {
-  color: var(--boatYellow2)
+.anchor:visited,
+.anchor:link,
+.anchor:active {
+  color: var(--boatYellow2);
 }
 
 h1,
@@ -252,6 +254,11 @@ a:visited:hover {
 
 a:visited {
   color: var(--oniViolet);
+}
+
+/* Ensure header anchor, when clicked, is not hidden by Navbar */
+a.anchor {
+  scroll-margin-top: 60px;
 }
 
 blockquote {
