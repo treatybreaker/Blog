@@ -21,6 +21,10 @@ article > p {
   font-weight: bold;
 }
 
+.page-title {
+  text-align: center;
+}
+
 .article-summary {
   font-size: 1.2rem;
 }
