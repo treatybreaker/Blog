@@ -48,6 +48,11 @@ impl HeadingAdapter for HeaderLinkAdapter {
             output,
             "<a id=\"{}\" class=\"anchor\" href=\"#{}\">",
             id, id
+        )?;
+        write!(
+            output,
+            "<heading-level>{} </heading-level>",
+            "#".repeat(heading.level as usize)
         )
     }
 
@@ -85,7 +90,10 @@ impl MDComrakSettings<'_> {
         R: std::io::BufRead + std::io::Seek,
     {
         let mut syntaxes = SyntaxSet::load_defaults_newlines().into_builder();
-        syntaxes.add_from_folder(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/syntaxes/"), true)?;
+        syntaxes.add_from_folder(
+            concat!(env!("CARGO_MANIFEST_DIR"), "/assets/syntaxes/"),
+            true,
+        )?;
         let theme = ThemeSet::load_from_reader(theme_cursor)?;
         let mut theme_set = ThemeSet::new();
         theme_set.themes.insert(String::from(theme_name), theme);

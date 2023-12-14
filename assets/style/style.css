@@ -203,7 +203,7 @@ img {
 .anchor:visited,
 .anchor:link,
 .anchor:active {
-  color: var(--boatYellow2);
+  color: var(--carpYellow);
 }
 
 h1,
@@ -216,6 +216,8 @@ h6 {
   font-family: sans-serif;
   margin-top: 20px;
   margin-bottom: 5px;
+  text-decoration: underline;
+  text-decoration-color: var(--boatYellow2);
 }
 
 h1 {
@@ -240,6 +242,12 @@ h5 {
 
 h6 {
   font-size: 1.1rem;
+}
+
+heading-level {
+  color: var(--autumnYellow);
+  font-weight: normal;
+  font-size: .9em;
 }
 
 a:link {
