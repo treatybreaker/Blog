@@ -341,6 +341,10 @@ li {
   margin-top: 2px;
 }
 
+dt::marker, dd::marker, dl::marker, li::marker {
+  color: var(--crystalBlue);
+}
+
 .page-info {
   display: flex;
   flex-direction: column;
